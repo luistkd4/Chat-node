@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <heade>
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    </heade>
+    <body>
+        <div class="container">
+            <br>
+            <div class="jumbotron">
+            <h1 class="display-4">Send Message</h1>
+            <br>
+            <input id = "name" class="form-control" placeholder="Name">
+            <br>
+            <textarea id = "message" class="form-control" placeholder="Your Message Here">
+           </textarea>
+            <br>
+            <button id="send" class="btn btn-success">Send</button>
+            </div>
+            <div id="messages">
+            
+           </div>
+           </div>
+           <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+           <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+           <script src="/socket.io/socket.io.js"></script>
+           <script>
+               var socket = io();
+               socket.on('message', addMessages)
+                $(() => {
+                    $("#send").click(()=>{
+                        sendMessage({
+                            name: $("#name").val(), 
+                            message:$("#message").val()});
+                    })
+                    getMessages()
+                })
+
+                function addMessages(message){
+                    $("#messages").append(`
+                        <h4> ${message.name} </h4>
+                        <p>  ${message.message} </p>`)
+                }
+
+                function getMessages(){
+                    $.get('http://localhost:3001/messages', (data) => {
+                        console.log(data);
+                        data.forEach(addMessages);
+                    })
+                }
+
+               function sendMessage(message) {
+                   $.post('http://localhost:3001/messages', message)
+               }
+
+           </script>
+    </body>
+</html>
+
+-- https://www.freecodecamp.org/news/simple-chat-application-in-node-js-using-express-mongoose-and-socket-io-ee62d94f5804/ -->
