@@ -4,7 +4,7 @@
   "description": "chat",
   "main": "server.js",
   "scripts": {
-    "start": "node ."
+    "start": "node server.js"
   },
   "author": "Miguel",
   "license": "ISC",
