@@ -71,6 +71,6 @@ app.post('/messages', (req, res) => {
     })
 })*/
 
-var server = http.listen(3001, () => {
+var server = http.listen(3000, () => {
     console.log('Server is running on port', server.address().port);
 })
